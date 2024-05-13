@@ -46,12 +46,16 @@ class GameWonFragment : Fragment() {
             view.findNavController().navigate(
                     GameWonFragmentDirections.actionGameWonFragmentToGameFragment())
         }
+        Toast.makeText(context,
+            "NumCorrect: ${args.numCorrect},NumQuestions: ${args.numQuestions}",
+            Toast.LENGTH_LONG).show()
         setHasOptionsMenu(true)
         return binding.root
     }
 
     private fun getShareIntent() : Intent {
         val args = GameWonFragmentArgs.fromBundle(requireArguments())
+        val shareIntent = Intent(Intent.ACTION_SEND)
         return ShareCompat.IntentBuilder.from(activity!!)
                 .setText(getString(R.string.share_success_text, args.numCorrect, args.numQuestions))
                 .setType("text/plain")
